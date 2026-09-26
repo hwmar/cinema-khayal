@@ -20,7 +20,425 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سینەما خەیاڵ | کورد سینەما - تەماشاکردنی فیلم و زنجیرەکان</title>
+    <style>
+        :root {
+            --bg-color: #141414;
+            --card-bg: #1f1f1f;
+            --primary: #e50914;
+            --text: #ffffff;
+            --subtext: #aaaaaa;
+            --gold: #f5c518;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            direction: rtl;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سینەما خەیاڵ | کورد سینەما - تەماشاکردنی فیلم و زنجیرەکان</title>
+    <style>
+        :root {
+            --bg-color: #141414;
+            --card-bg: #1f1f1f;
+            --primary: #e50914;
+            --text: #ffffff;
+            --subtext: #aaaaaa;
+            --gold: #f5c518;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            direction: rtl;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .search-box input {
+            background-color: #000;
+            border: 1px solid #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: #fff;
+            outline: none;
+        }
+
+        .hero {
+            height: 60vh;
+            background: linear-gradient(to top, var(--bg-color), transparent),
+                        url('https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg') center/cover;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px 5%;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .hero-desc {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn-play {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .container {
+            padding: 20px 5%;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--primary);
+            padding-right: 10px;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .movie-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+            text-decoration: none;
+            color: white;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.8);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .badge.sub { background-color: #2e7d32; }
+        .badge.rating { top: auto; bottom: 50px; left: 10px; right: auto; background-color: var(--gold); color: black; font-weight: bold; }
+
+        .movie-info {
+            padding: 10px;
+        }
+
+        .movie-title {
+            font-size: 0.9em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">سینەما خەیاڵ</a>
+        <ul class="nav-links">
+            <li><a href="#">سەرەکی</a></li>
+            <li><a href="#">فیلمی ژێرنووسکراو</a></li>
+            <li><a href="#">فیلمی دۆبلاژکراو</a></li>
+            <li><a href="#">زنجیرەکان</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" placeholder="گەڕان بۆ فیلم...">
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Inception (2010)</h1>
+            <p class="hero-desc">دزێک کە توانای چوونە ناو خەوی خەڵکی و دزینی نهێنییەکانیانی هەیە، دەرفەتێکی پێدەدرێت بۆ سڕینەوەی تۆماری تاوانەکانی...</p>
+            <a href="player.html" class="btn-play">▶ سەیرکردنی فیلم</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">تازه ترین فیلمە بلاوکراوەکان</h2>
+        <div class="movies-grid">
+            <a href="player.html" class="movie-card">
+                <span class="badge sub">ژێرنووسی کوردی</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg" alt="Inception">
+                <span class="badge rating">8.8 ★</span>
+                <div class="movie-info">
+                    <div class="movie-title">Inception</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .search-box input {
+            background-color: #000;
+            border: 1px solid #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: #fff;
+            outline: none;
+        }
+
+        .hero {
+            height: 60vh;
+            background: linear-gradient(to top, var(--bg-color), transparent),
+                        url('https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg') center/cover;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px 5%;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .hero-desc {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn-play {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .container {
+            padding: 20px 5%;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--primary);
+            padding-right: 10px;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .movie-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+            text-decoration: none;
+            color: white;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.8);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .badge.sub { background-color: #2e7d32; }
+        .badge.rating { top: auto; bottom: 50px; left: 10px; right: auto; background-color: var(--gold); color: black; font-weight: bold; }
+
+        .movie-info {
+            padding: 10px;
+        }
+
+        .movie-title {
+            font-size: 0.9em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">سینەما خەیاڵ</a>
+        <ul class="nav-links">
+            <li><a href="#">سەرەکی</a></li>
+            <li><a href="#">فیلمی ژێرنووسکراو</a></li>
+            <li><a href="#">فیلمی دۆبلاژکراو</a></li>
+            <li><a href="#">زنجیرەکان</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" placeholder="گەڕان بۆ فیلم...">
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Inception (2010)</h1>
+            <p class="hero-desc">دزێک کە توانای چوونە ناو خەوی خەڵکی و دزینی نهێنییەکانیانی هەیە، دەرفەتێکی پێدەدرێت بۆ سڕینەوەی تۆماری تاوانەکانی...</p>
+            <a href="player.html" class="btn-play">▶ سەیرکردنی فیلم</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">تازه ترین فیلمە بلاوکراوەکان</h2>
+        <div class="movies-grid">
+            <a href="player.html" class="movie-card">
+                <span class="badge sub">ژێرنووسی کوردی</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg" alt="Inception">
+                <span class="badge rating">8.8 ★</span>
+                <div class="movie-info">
+                    <div class="movie-title">Inception</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
         body {
             background-color: var(--bg-color);
             color: var(--text);
