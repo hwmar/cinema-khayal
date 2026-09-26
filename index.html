@@ -2,7 +2,7 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>سینەما خەیاڵ | کورد سینەما - تەماشاکردنی فیلم و زنجیرەکان</title>
     <style>
         :root {
@@ -21,25 +21,29 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body {
+        html, body {
             background-color: var(--bg-color);
             color: var(--text);
             direction: rtl;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         nav {
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 15px 5%;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 12px 4%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo {
-            font-size: 1.8em;
+            font-size: 1.5em;
             font-weight: bold;
             color: var(--primary);
             text-decoration: none;
@@ -48,13 +52,14 @@
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
             color: var(--text);
             text-decoration: none;
-            font-size: 0.95em;
+            font-size: 0.85em;
             transition: 0.3s;
         }
 
@@ -65,63 +70,74 @@
         .search-box input {
             background-color: #000;
             border: 1px solid #333;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 20px;
             color: #fff;
             outline: none;
+            font-size: 0.85em;
+            width: 100%;
+            max-width: 130px;
         }
 
         .hero {
-            height: 60vh;
+            height: 50vh;
+            min-height: 280px;
             background: linear-gradient(to top, var(--bg-color), transparent),
                         url('https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg') center/cover;
             display: flex;
             align-items: flex-end;
-            padding: 40px 5%;
+            padding: 20px 4%;
         }
 
         .hero-content {
             max-width: 600px;
+            width: 100%;
         }
 
         .hero-title {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 1.8em;
+            margin-bottom: 8px;
         }
 
         .hero-desc {
             color: #ccc;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            font-size: 0.85em;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .btn-play {
             background-color: var(--primary);
             color: white;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border: none;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
+            font-size: 0.9em;
         }
 
         .container {
-            padding: 20px 5%;
+            padding: 20px 4%;
         }
 
         .section-title {
-            font-size: 1.4em;
-            margin-bottom: 20px;
+            font-size: 1.2em;
+            margin-bottom: 15px;
             border-right: 4px solid var(--primary);
             padding-right: 10px;
         }
 
         .movies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
         }
 
         .movie-card {
@@ -140,32 +156,47 @@
 
         .movie-card img {
             width: 100%;
-            height: 230px;
+            height: 190px;
             object-fit: cover;
         }
 
         .badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
             background-color: rgba(0,0,0,0.8);
-            padding: 3px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
-            font-size: 0.8em;
+            font-size: 0.7em;
         }
 
         .badge.sub { background-color: #2e7d32; }
-        .badge.rating { top: auto; bottom: 50px; left: 10px; right: auto; background-color: var(--gold); color: black; font-weight: bold; }
+        .badge.rating { top: auto; bottom: 45px; left: 8px; right: auto; background-color: var(--gold); color: black; font-weight: bold; }
 
         .movie-info {
-            padding: 10px;
+            padding: 8px;
         }
 
         .movie-title {
-            font-size: 0.9em;
+            font-size: 0.85em;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                justify-content: space-between;
+            }
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 5px;
+            }
+            .hero-title {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
@@ -173,15 +204,15 @@
 
     <nav>
         <a href="index.html" class="logo">سینەما خەیاڵ</a>
+        <div class="search-box">
+            <input type="text" placeholder="گەڕان...">
+        </div>
         <ul class="nav-links">
             <li><a href="#">سەرەکی</a></li>
-            <li><a href="#">فیلمی ژێرنووسکراو</a></li>
-            <li><a href="#">فیلمی دۆبلاژکراو</a></li>
+            <li><a href="#">ژێرنووس</a></li>
+            <li><a href="#">دۆبلاژ</a></li>
             <li><a href="#">زنجیرەکان</a></li>
         </ul>
-        <div class="search-box">
-            <input type="text" placeholder="گەڕان بۆ فیلم...">
-        </div>
     </nav>
 
     <div class="hero">
