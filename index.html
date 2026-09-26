@@ -15,177 +15,196 @@
         .light-mode {
             --bg-color: #f4f4f4;
             --card-bg: #ffffff;
-            --text-color: #000000;
+            --text-color: #121212;
             --primary-color: #e50914;
         }
 
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: system-ui, -apple-system, sans-serif;
             margin: 0;
-            padding: 15px;
-            transition: all 0.3s ease;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary-color);
+            background-color: #000000;
+            padding: 20px;
+            text-align: center;
+            position: relative;
         }
 
-        h1 {
+        header h1 {
             margin: 0;
             color: var(--primary-color);
-            font-size: 22px;
+            font-size: 2.5em;
         }
 
-        button.theme-btn {
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
             background: var(--primary-color);
-            color: white;
+            color: #fff;
             border: none;
-            padding: 8px 12px;
-            border-radius: 20px;
+            padding: 8px 15px;
+            border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
         }
 
-        .search-filter {
-            margin: 20px 0;
+        .controls {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        input, select {
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            background: var(--card-bg);
-            color: var(--text-color);
-            font-size: 14px;
-        }
-
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            justify-content: center;
             gap: 15px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"], select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1em;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .movie-card {
-            background: var(--card-bg);
-            border-radius: 10px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            justify-content: space-between;
         }
 
         .movie-card img {
             width: 100%;
-            height: 180px;
+            height: 300px;
             object-fit: cover;
-            border-radius: 8px;
+        }
+
+        .movie-info {
+            padding: 15px;
+            text-align: center;
         }
 
         .movie-title {
-            font-size: 14px;
-            margin: 8px 0 4px 0;
-            font-weight: bold;
+            font-size: 1.2em;
+            margin: 10px 0 5px;
         }
 
         .movie-genre {
-            font-size: 12px;
             color: #888;
-            margin-bottom: 8px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
         }
 
-        .trailer-btn {
-            background: #2196F3;
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            cursor: pointer;
+        .btn-trailer {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
             text-decoration: none;
-            margin-top: auto;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .btn-trailer:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🎬 سینەما خەیاڵ</h1>
-        <button class="theme-btn" onclick="toggleTheme()">دۆخی ڕۆژ/شەو</button>
+        <button class="theme-toggle" onclick="toggleTheme()">گۆڕینی ڕوکار</button>
+        <h1>سینەما خەیاڵ</h1>
     </header>
 
-    <div class="search-filter">
+    <div class="controls">
         <input type="text" id="searchInput" onkeyup="filterMovies()" placeholder="گەڕان بۆ فیلم...">
         <select id="genreSelect" onchange="filterMovies()">
             <option value="all">هەموو جۆرەکان</option>
             <option value="ئەکشن">ئەکشن</option>
             <option value="دراما">دراما</option>
             <option value="کۆمیدی">کۆمیدی</option>
-            <option value="ترسناک">ترسناک</option>
+            <option value="زانستی">زانستی</option>
         </select>
     </div>
 
-    <div class="movie-grid" id="movieList">
-        <div class="movie-card" data-genre="دراما">
-            <img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="The Shawshank Redemption">
-            <div class="movie-title">Shawshank Redemption</div>
-            <div class="movie-genre">دراما</div>
-            <a href="https://www.youtube.com/watch?v=6hB3S9bIaco" target="_blank" class="trailer-btn">سەیرکردنی ترایلەر 🍿</a>
+    <div class="movies-grid" id="moviesGrid">
+        <div class="movie-card" data-genre="ئەکشن" data-title="Inception">
+            <img src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg" alt="Inception">
+            <div class="movie-info">
+                <div class="movie-title">Inception</div>
+                <div class="movie-genre">جۆر: ئەکشن / زانستی</div>
+                <a href="https://www.youtube.com/results?search_query=Inception+trailer" target="_blank" class="btn-trailer">سەیرکردنی ترایلەر</a>
+            </div>
         </div>
 
-        <div class="movie-card" data-genre="دراما">
-            <img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" alt="The Godfather">
-            <div class="movie-title">The Godfather</div>
-            <div class="movie-genre">دراما / تاوان</div>
-            <a href="https://www.youtube.com/watch?v=sY1S349gQ4U" target="_blank" class="trailer-btn">سەیرکردنی ترایلەر 🍿</a>
+        <div class="movie-card" data-genre="دراما" data-title="The Shawshank Redemption">
+            <img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="Shawshank">
+            <div class="movie-info">
+                <div class="movie-title">The Shawshank Redemption</div>
+                <div class="movie-genre">جۆر: دراما</div>
+                <a href="https://www.youtube.com/results?search_query=The+Shawshank+Redemption+trailer" target="_blank" class="btn-trailer">سەیرکردنی ترایلەر</a>
+            </div>
         </div>
 
-        <div class="movie-card" data-genre="ئەکشن">
-            <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" alt="The Dark Knight">
-            <div class="movie-title">The Dark Knight</div>
-            <div class="movie-genre">ئەکشن</div>
-            <a href="https://www.youtube.com/watch?v=EXeTwQWrcwY" target="_blank" class="trailer-btn">سەیرکردنی ترایلەر 🍿</a>
+        <div class="movie-card" data-genre="ئەکشن" data-title="The Dark Knight">
+            <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" alt="Dark Knight">
+            <div class="movie-info">
+                <div class="movie-title">The Dark Knight</div>
+                <div class="movie-genre">جۆر: ئەکشن</div>
+                <a href="https://www.youtube.com/results?search_query=The+Dark+Knight+trailer" target="_blank" class="btn-trailer">سەیرکردنی ترایلەر</a>
+            </div>
         </div>
 
-        <div class="movie-card" data-genre="کۆمیدی">
-            <img src="https://m.media-amazon.com/images/M/MV5BMTM0NTczMTMyM15BMl5BanBnXkFtZTcwMzA2MTI3MQ@@._V1_.jpg" alt="Home Alone">
-            <div class="movie-title">Home Alone</div>
-            <div class="movie-genre">کۆمیدی</div>
-            <a href="https://www.youtube.com/watch?v=jEDaVHmw7rI" target="_blank" class="trailer-btn">سەیرکردنی ترایلەر 🍿</a>
+        <div class="movie-card" data-genre="کۆمیدی" data-title="The Mask">
+            <img src="https://m.media-amazon.com/images/M/MV5BOWExYjI5MzktNTRhNi00Nzg2LThkZmItM2M1Y2U4ZTFmM2VkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg" alt="The Mask">
+            <div class="movie-info">
+                <div class="movie-title">The Mask</div>
+                <div class="movie-genre">جۆر: کۆمیدی</div>
+                <a href="https://www.youtube.com/results?search_query=The+Mask+trailer" target="_blank" class="btn-trailer">سەیرکردنی ترایلەر</a>
+            </div>
         </div>
     </div>
 
     <script>
         function toggleTheme() {
-            document.body.classList.toggle("light-mode");
+            document.body.classList.toggle('light-mode');
         }
 
         function filterMovies() {
-            let searchVal = document.getElementById("searchInput").value.toLowerCase();
-            let genreVal = document.getElementById("genreSelect").value;
-            let cards = document.querySelectorAll(".movie-card");
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const genreSelect = document.getElementById('genreSelect').value;
+            const movies = document.querySelectorAll('.movie-card');
 
-            cards.forEach(card => {
-                let title = card.querySelector(".movie-title").innerText.toLowerCase();
-                let genre = card.getAttribute("data-genre");
+            movies.forEach(movie => {
+                const title = movie.getAttribute('data-title').toLowerCase();
+                const genre = movie.getAttribute('data-genre');
 
-                let matchesSearch = title.includes(searchVal);
-                let matchesGenre = (genreVal === "all" || genre === genreVal);
+                const matchesSearch = title.includes(searchInput);
+                const matchesGenre = (genreSelect === 'all' || genre === genreSelect);
 
                 if (matchesSearch && matchesGenre) {
-                    card.style.display = "flex";
+                    movie.style.display = 'flex';
                 } else {
-                    card.style.display = "none";
+                    movie.style.display = 'none';
                 }
             });
         }
