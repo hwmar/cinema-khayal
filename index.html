@@ -3,208 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سینەما خەیاڵ</title>
+    <title>سینەما خەیاڵ | کورد سینەما - تەماشاکردنی فیلم و زنجیرەکان</title>
     <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
-            --primary-color: #e50914;
+            --bg-color: #141414;
+            --card-bg: #1f1f1f;
+            --primary: #e50914;
+            --text: #ffffff;
+            --subtext: #aaaaaa;
+            --gold: #f5c518;
         }
 
-        .light-mode {
-            --bg-color: #f4f4f4;
-            --card-bg: #ffffff;
-            --text-color: #121212;
-            --primary-color: #e50914;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
+            color: var(--text);
+            direction: rtl;
         }
 
-        header {
-            background-color: #000000;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        header h1 {
-            margin: 0;
-            color: var(--primary-color);
-            font-size: 2.5em;
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .controls {
+        /* Navbar */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 5%;
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
         }
 
-        input[type="text"], select {
-            padding: 10px;
-            border-radius: 5px;
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Search Box */
+        .search-box input {
+            background-color: #2b2b2b;
             border: 1px solid #444;
-            background-color: var(--card-bg);
-            color: var(--text-color);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        /* Featured / Hero Section */
+        .hero {
+            position: relative;
+            height: 450px;
+            background: linear-gradient(to top, var(--bg-color), transparent),
+                        url('https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg') center/cover;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px 5%;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .hero-desc {
+            font-size: 0.95em;
+            color: #ddd;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .btn-play {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
             font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Movies Section */
+        .section-title {
+            padding: 20px 5% 10px;
+            font-size: 1.4em;
+            border-right: 4px solid var(--primary);
+            margin: 20px 5% 10px;
         }
 
         .movies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 10px 5% 40px;
         }
 
         .movie-card {
             background-color: var(--card-bg);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
-        .movie-card img {
+        .movie-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(229, 9, 20, 0.4);
+        }
+
+        .poster-wrapper {
+            position: relative;
+            height: 260px;
+        }
+
+        .poster-wrapper img {
             width: 100%;
-            height: 300px;
+            height: 100%;
             object-fit: cover;
         }
 
-        .movie-info {
-            padding: 15px;
-            text-align: center;
+        .badge-kurdish {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #2e7d32;
+            color: #fff;
+            font-size: 0.75em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .badge-imdb {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: var(--gold);
+            color: #000;
+            font-size: 0.8em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .movie-details {
+            padding: 12px;
         }
 
         .movie-title {
-            font-size: 1.2em;
-            margin: 10px 0 5px;
-        }
-
-        .movie-genre {
-            color: #888;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-
-        .btn-trailer {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #fff;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 5px;
+            font-size: 1em;
             font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: var(--subtext);
             margin-top: 5px;
         }
 
-        .btn-trailer:hover {
-            opacity: 0.9;
+        footer {
+            background-color: #0a0a0a;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #222;
+            color: var(--subtext);
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <button class="theme-toggle" onclick="toggleTheme()">گۆڕینی ڕوکار</button>
-        <h1>سینەما خەیاڵ</h1>
-    </header>
+    <!-- Nav Bar -->
+    <nav>
+        <a href="#" class="logo">سینەما خەیاڵ</a>
+        <ul class="nav-links">
+            <li><a href="#">سەرەکی</a></li>
+            <li><a href="#">فیلمی ژێرنووسکراو</a></li>
+            <li><a href="#">فیلمی دۆبلاژکراو</a></li>
+            <li><a href="#">زنجیرەکان</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" onkeyup="searchMovie()" placeholder="گەڕان بۆ فیلم...">
+        </div>
+    </nav>
 
-    <div class="controls">
-        <input type="text" id="searchInput" onkeyup="filterMovies()" placeholder="گەڕان بۆ فیلم...">
-        <select id="genreSelect" onchange="filterMovies()">
-            <option value="all">هەموو جۆرەکان</option>
-            <option value="ئەکشن">ئەکشن</option>
-            <option value="دراما">دراما</option>
-            <option value="کۆمیدی">کۆمیدی</option>
-            <option value="زانستی">زانستی</option>
-        </select>
+    <!-- Hero / Featured Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Inception (2010)</h1>
+            <p class="hero-desc">دزێک کە توانای چوونە ناو خەوی خەڵکی و دزینی نهێنییەکانیانی هەیە، دەرفەتێکی پێدەدرێت بۆ سڕینەوەی تۆماری تاوانەکانی...</p>
+            <a href="https://www.youtube.com/results?search_query=Inception+trailer" target="_blank" class="btn-play">▶ سەیرکردنی ترایلەر</a>
+        </div>
     </div>
+
+    <!-- Movies List -->
+    <h2 class="section-title">تازەترین فیلمە بڵاوکراوەکان</h2>
 
     <div class="movies-grid" id="moviesGrid">
-        <div class="movie-card" data-genre="ئەکشن" data-title="Inception">
-            <img src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg" alt="Inception">
-            <div class="movie-info">
+
+        <!-- Movie Card 1 -->
+        <div class="movie-card" data-title="Inception">
+            <div class="poster-wrapper">
+                <span class="badge-kurdish">ژێرنووسی کوردی</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg" alt="Inception">
+                <span class="badge-imdb">★ 8.8</span>
+            </div>
+            <div class="movie-details">
                 <div class="movie-title">Inception</div>
-                <div class="movie-genre">جۆر: ئەکشن / زانستی</div>
-                <a href="https://www.youtube.com/results?search_query=Inception+trailer" target="_blank" class="btn-trailer">سەیرکردنی ترایلەر</a>
+                <div class="movie-meta">
+                    <span>2010</span>
+                    <span>ئەکشن / زانستی</span>
+                </div>
             </div>
         </div>
 
-        <div class="movie-card" data-genre="دراما" data-title="The Shawshank Redemption">
-            <img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="Shawshank">
-            <div class="movie-info">
+        <!-- Movie Card 2 -->
+        <div class="movie-card" data-title="The Shawshank Redemption">
+            <div class="poster-wrapper">
+                <span class="badge-kurdish">ژێرنووسی کوردی</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="Shawshank">
+                <span class="badge-imdb">★ 9.3</span>
+            </div>
+            <div class="movie-details">
                 <div class="movie-title">The Shawshank Redemption</div>
-                <div class="movie-genre">جۆر: دراما</div>
-                <a href="https://www.youtube.com/results?search_query=The+Shawshank+Redemption+trailer" target="_blank" class="btn-trailer">سەیرکردنی ترایلەر</a>
+                <div class="movie-meta">
+                    <span>1994</span>
+                    <span>دراما</span>
+                </div>
             </div>
         </div>
 
-        <div class="movie-card" data-genre="ئەکشن" data-title="The Dark Knight">
-            <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" alt="Dark Knight">
-            <div class="movie-info">
+        <!-- Movie Card 3 -->
+        <div class="movie-card" data-title="The Dark Knight">
+            <div class="poster-wrapper">
+                <span class="badge-kurdish">ژێرنووسی کوردی</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" alt="Dark Knight">
+                <span class="badge-imdb">★ 9.0</span>
+            </div>
+            <div class="movie-details">
                 <div class="movie-title">The Dark Knight</div>
-                <div class="movie-genre">جۆر: ئەکشن</div>
-                <a href="https://www.youtube.com/results?search_query=The+Dark+Knight+trailer" target="_blank" class="btn-trailer">سەیرکردنی ترایلەر</a>
+                <div class="movie-meta">
+                    <span>2008</span>
+                    <span>ئەکشن / تاوان</span>
+                </div>
             </div>
         </div>
 
-        <div class="movie-card" data-genre="کۆمیدی" data-title="The Mask">
-            <img src="https://m.media-amazon.com/images/M/MV5BOWExYjI5MzktNTRhNi00Nzg2LThkZmItM2M1Y2U4ZTFmM2VkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg" alt="The Mask">
-            <div class="movie-info">
-                <div class="movie-title">The Mask</div>
-                <div class="movie-genre">جۆر: کۆمیدی</div>
-                <a href="https://www.youtube.com/results?search_query=The+Mask+trailer" target="_blank" class="btn-trailer">سەیرکردنی ترایلەر</a>
+        <!-- Movie Card 4 -->
+        <div class="movie-card" data-title="Interstellar">
+            <div class="poster-wrapper">
+                <span class="badge-kurdish">ژێرنووسی کوردی</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMTI2My00MGEwLTQzN2UtM2FiM2U5MS1lNTMzXkEyXkFqcGdeQXVyNTkzNDQ4ODY@._V1_.jpg" alt="Interstellar">
+                <span class="badge-imdb">★ 8.7</span>
+            </div>
+            <div class="movie-details">
+                <div class="movie-title">Interstellar</div>
+                <div class="movie-meta">
+                    <span>2014</span>
+                    <span>زانستی / سەرکێشی</span>
+                </div>
             </div>
         </div>
+
     </div>
 
+    <footer>
+        <p>© 2026 ماڵپەڕی سینەما خەیاڵ - سەرجەم مافەکانی پارێزراوە</p>
+    </footer>
+
     <script>
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-        }
+        function searchMovie() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.movie-card');
 
-        function filterMovies() {
-            const searchInput = document.getElementById('searchInput').value.toLowerCase();
-            const genreSelect = document.getElementById('genreSelect').value;
-            const movies = document.querySelectorAll('.movie-card');
-
-            movies.forEach(movie => {
-                const title = movie.getAttribute('data-title').toLowerCase();
-                const genre = movie.getAttribute('data-genre');
-
-                const matchesSearch = title.includes(searchInput);
-                const matchesGenre = (genreSelect === 'all' || genre === genreSelect);
-
-                if (matchesSearch && matchesGenre) {
-                    movie.style.display = 'flex';
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(input)) {
+                    card.style.display = 'block';
                 } else {
-                    movie.style.display = 'none';
+                    card.style.display = 'none';
                 }
             });
         }
